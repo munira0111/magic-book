@@ -6,9 +6,7 @@
     --speed: 1.2s;
 }
 
-* {
-    box-sizing: border-box; 
-}
+* { box-sizing: border-box; }
 
 body {
     background: radial-gradient(circle, #2c1e1c 0%, #000000 100%);
@@ -21,31 +19,30 @@ body {
     font-family: 'IM Fell English SC', serif;
 }
 
-.scene {
-    perspective: 2000px;
-}
+.scene { perspective: 2000px; }
 
 .book {
-    width: 380px; 
-    height: 500px;
+    width: 350px; 
+    height: 480px;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 1.2s ease-in-out;
+    transition: transform var(--speed) ease-in-out;
 }
 
-/* ডেস্কটপে খোলার পজিশন */
-.book.open {
-    transform: translateX(190px);
-}
+/* ডেস্কটপে খোলার পর ডানে সরবে */
+.book.open { transform: translateX(175px); }
 
-.book-part {
+/* পাতার স্তূপ বা Stacked Pages এর ইফেক্ট */
+.page-stack {
     position: absolute;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    border-radius: 5px 12px 12px 5px;
-    transition: transform var(--speed) ease-in-out;
+    height: 96%;
+    top: 2%;
+    background: var(--paper-bg);
+    box-shadow: 
+        1px 0 0 #d9c89a, 2px 0 0 #d9c89a, 3px 0 0 #d9c89a,
+        4px 0 0 #d9c89a, 5px 0 0 #d9c89a;
+    border-radius: 2px 5px 5px 2px;
 }
 
 .cover-container {
@@ -58,116 +55,82 @@ body {
     transition: transform var(--speed) ease-in-out;
 }
 
-.book.open .cover-container {
-    transform: rotateY(-180deg);
-}
+.book.open .cover-container { transform: rotateY(-180deg); }
 
 .cover-front {
     background: var(--cover-bg);
     background-image: url('https://www.transparenttextures.com/patterns/leather.png');
-    width: 100%;
-    height: 100%;
-    border: 8px solid #3d2523;
-    border-left: 15px solid #2b1a18;
+    width: 100%; height: 100%;
+    border: 6px solid #3d2523;
+    border-left: 12px solid #2b1a18;
     color: var(--gold);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    display: flex; justify-content: center; align-items: center;
     backface-visibility: hidden;
     z-index: 2;
+    border-radius: 5px 12px 12px 5px;
 }
 
-.cover-front h1 { font-size: 3.5rem; text-shadow: 2px 2px 4px #000; }
+.cover-front h1 { font-size: 3rem; text-shadow: 2px 2px 4px #000; }
 
 .cover-back {
     background: var(--paper-bg);
-    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
     transform: rotateY(180deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; justify-content: center; align-items: center;
     backface-visibility: hidden;
-    border-left: 1px solid rgba(0,0,0,0.1);
+    width: 100%; height: 100%;
+    border-radius: 12px 5px 5px 12px;
 }
 
 .page-right {
     background: var(--paper-bg);
+    width: 100%; height: 100%;
+    position: absolute;
     z-index: 1;
-    padding: 50px 40px;
-    box-shadow: none; /* শুরুতে কোনো শ্যাডো থাকবে না */
+    padding: 40px;
+    border-radius: 2px 10px 10px 2px;
 }
 
-/* বই যখন খুলবে শুধু তখনই পাতার শ্যাডো আসবে */
-.book.open .page-right {
-    box-shadow: 
-        5px 0 0 #e3d3a8, 
-        10px 0 0 #d9c89a,
-        15px 5px 30px rgba(0,0,0,0.5);
-}
-
+/* লোগো এবং ফর্ম টেক্সট */
 .logo-text {
     font-family: 'Eagle Lake', cursive;
-    font-size: 4rem;
-    color: var(--ink);
-    transform: rotate(-5deg);
+    font-size: 3.5rem; color: var(--ink);
+    transform: rotate(-3deg);
 }
 
-h3 { font-size: 2.5rem; margin-bottom: 30px; text-align: center; color: var(--ink); }
+h3 { font-size: 2.2rem; color: var(--ink); text-align: center; margin-bottom: 20px; }
 
 input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 25px;
-    background: transparent;
-    border: none;
+    width: 100%; padding: 10px; margin-bottom: 20px;
+    background: transparent; border: none;
     border-bottom: 2px solid var(--ink);
-    font-family: inherit;
-    font-size: 1.2rem;
-    outline: none;
+    font-family: inherit; font-size: 1.1rem; outline: none;
 }
 
 .unlock-btn {
-    width: 100%;
-    padding: 15px;
-    background: #3d2b1f;
-    color: var(--gold);
-    border: 1px solid var(--gold);
-    font-size: 1.3rem;
-    cursor: pointer;
-    transition: 0.3s;
+    width: 100%; padding: 12px;
+    background: #3d2b1f; color: var(--gold);
+    border: 1px solid var(--gold); font-size: 1.2rem;
+    cursor: pointer; transition: 0.3s;
 }
 
 .unlock-btn:hover { background: var(--gold); color: #3d2b1f; }
 
-/* মোবাইল ভিউর জন্য স্পেশাল সেটিংস */
+/* মোবাইল ভিউ - যেখানে পুরো বইটা একসাথে দেখা যাবে */
 @media (max-width: 768px) {
-    /* পুরো বইটিকে ছোট করে স্ক্রিনে ফিট করা */
     .book {
-        width: 180px;  /* এক পাশের উইডথ */
-        height: 350px; 
+        width: 160px; /* এক পাশের উইডথ কমানো হয়েছে */
+        height: 350px;
         left: 50%;
-        margin-left: -90px;
-        transform: scale(0.85); /* বইটিকে ১৫% ছোট করা যাতে স্ক্রিনে ধরে */
-        transform-origin: center;
+        margin-left: -80px;
+        transform: scale(0.9); /* ছোট স্ক্রিনে ফিট করার জন্য */
     }
 
-    /* মোবাইলে বই খোলার সময় পজিশন ঠিক রাখা */
     .book.open {
-        transform: scale(0.85) translateX(0); 
+        transform: scale(0.9) translateX(80px); /* খোলার পর দুই পাশই স্ক্রিনে থাকবে */
     }
 
-    /* ফন্ট সাইজ এবং ইনপুট অ্যাডজাস্টমেন্ট */
-    .cover-front h1 { font-size: 1.6rem; }
+    .cover-front h1 { font-size: 1.5rem; }
     .logo-text { font-size: 1.8rem; }
-    h3 { font-size: 1.4rem; margin-bottom: 10px; }
-    
-    input { 
-        padding: 6px; 
-        margin-bottom: 12px; 
-        font-size: 0.9rem; 
-    }
-
-    .unlock-btn { padding: 10px; font-size: 1rem; }
-    .page-right { padding: 15px 10px; }
+    h3 { font-size: 1.5rem; }
+    .page-right { padding: 20px 15px; }
 }
