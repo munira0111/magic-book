@@ -142,29 +142,32 @@ input {
 
 /* মোবাইল ভিউর জন্য স্পেশাল সেটিংস */
 @media (max-width: 768px) {
+    /* পুরো বইটিকে ছোট করে স্ক্রিনে ফিট করা */
     .book {
-        width: 160px;  /* মোবাইলের জন্য এক পাশের পাতার উইডথ অনেক কমানো হয়েছে */
-        height: 380px; 
+        width: 180px;  /* এক পাশের উইডথ */
+        height: 350px; 
         left: 50%;
-        margin-left: -80px; /* উইডথ এর অর্ধেক দিয়ে স্ক্রিনের ঠিক মাঝখানে রাখা */
-        transform: translateX(0);
+        margin-left: -90px;
+        transform: scale(0.85); /* বইটিকে ১৫% ছোট করা যাতে স্ক্রিনে ধরে */
+        transform-origin: center;
     }
 
-    /* মোবাইল যখন বই খুলবে, তখন পুরো বইটাকে সামান্য বামে সরাবো যাতে দুই পাশই দেখা যায় */
+    /* মোবাইলে বই খোলার সময় পজিশন ঠিক রাখা */
     .book.open {
-        transform: translateX(60px); 
+        transform: scale(0.85) translateX(0); 
     }
 
-    .cover-front h1 { font-size: 1.5rem; }
+    /* ফন্ট সাইজ এবং ইনপুট অ্যাডজাস্টমেন্ট */
+    .cover-front h1 { font-size: 1.6rem; }
     .logo-text { font-size: 1.8rem; }
-    h3 { font-size: 1.5rem; margin-bottom: 15px; }
+    h3 { font-size: 1.4rem; margin-bottom: 10px; }
     
     input { 
-        padding: 8px; 
-        margin-bottom: 15px; 
-        font-size: 1rem; 
+        padding: 6px; 
+        margin-bottom: 12px; 
+        font-size: 0.9rem; 
     }
 
-    .unlock-btn { padding: 10px; font-size: 1.1rem; }
-    .page-right { padding: 20px 15px; }
+    .unlock-btn { padding: 10px; font-size: 1rem; }
+    .page-right { padding: 15px 10px; }
 }
