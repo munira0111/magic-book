@@ -155,30 +155,28 @@ input {
 
 .hint { margin-top: 20px; font-size: 0.9rem; letter-spacing: 2px; animation: blink 2s infinite; }
 @keyframes blink { 50% { opacity: 0.3; } }
-/* মোবাইল স্ক্রিনের জন্য (৭৬৮ পিক্সেলের নিচে) */
 @media (max-width: 768px) {
     .book {
-        width: 300px;  /* মোবাইলে বইয়ের প্রস্থ কমবে */
-        height: 420px; /* মোবাইলে বইয়ের উচ্চতা কমবে */
+        width: 280px;  /* মোবাইলের জন্য উইডথ আরেকটু কমানো হয়েছে */
+        height: 400px; 
+        left: 50%;     /* স্ক্রিনের মাঝখানে রাখার জন্য */
+        transform: translateX(-50%); /* সেন্টার করার জন্য */
     }
 
+    /* মোবাইল যখন বই খুলবে, তখন ডান দিকে বেশি না সরে সামান্য সরবে */
     .book.open {
-        transform: translateX(150px); /* খোলার পর পজিশন অ্যাডজাস্ট */
+        transform: translateX(-20%); 
     }
 
     .cover-front h1 {
-        font-size: 2.2rem; /* লেখার সাইজ ছোট হবে */
-    }
-
-    .logo-text {
-        font-size: 2.5rem;
-    }
-
-    h3 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     .page-right {
-        padding: 30px 20px; /* ভেতরের খালি জায়গা কমবে */
+        padding: 20px 15px;
+    }
+
+    .logo-text {
+        font-size: 2rem;
     }
 }
