@@ -32,23 +32,47 @@ body {
 /* ডেস্কটপে খোলার পর ডানে সরবে */
 .book.open { transform: translateX(175px); }
 
-/* পাতার স্তূপ বা Stacked Pages এর ইফেক্ট */
-.page-stack {
-    position: absolute;
-    width: 100%;
-    height: 96%;
-    top: 2%;
+/* পাতার স্তূপ বা Stacked Pages এর ইফেক্ট (ডান দিকে) */
+.page-right {
     background: var(--paper-bg);
-    box-shadow: 
-        1px 0 0 #d9c89a, 2px 0 0 #d9c89a, 3px 0 0 #d9c89a,
-        4px 0 0 #d9c89a, 5px 0 0 #d9c89a;
-    border-radius: 2px 5px 5px 2px;
+    width: 100%; height: 100%;
+    position: absolute;
+    z-index: 1;
+    padding: 40px;
+    border-radius: 2px 10px 10px 2px;
+    box-shadow: inset 5px 0 10px rgba(0,0,0,0.1);
+}
+
+/* ডান পাশের পাতার গভীরতা (Thickness) */
+.page-right::after {
+    content: '';
+    position: absolute;
+    top: 5px; right: -10px;
+    width: 10px; height: 100%;
+    background: var(--paper-bg);
+    border-right: 1px solid #d9c89a;
+    /* লাইনের মাধ্যমে পাতার স্তূপ বোঝানো */
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 2px, #d9c89a 3px);
+    transform: skewY(45deg);
+    transform-origin: left;
+}
+
+/* বাম পাশের পাতার গভীরতা (খোলার পর দেখা যাবে) */
+.cover-back::after {
+    content: '';
+    position: absolute;
+    top: 5px; left: -10px;
+    width: 10px; height: 100%;
+    background: var(--paper-bg);
+    border-left: 1px solid #d9c89a;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 2px, #d9c89a 3px);
+    transform: skewY(-45deg);
+    transform-origin: right;
 }
 
 .cover-container {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     z-index: 10;
     transform-style: preserve-3d;
     transform-origin: left;
@@ -61,16 +85,14 @@ body {
     background: var(--cover-bg);
     background-image: url('https://www.transparenttextures.com/patterns/leather.png');
     width: 100%; height: 100%;
-    border: 6px solid #3d2523;
-    border-left: 12px solid #2b1a18;
+    border: 8px solid #3d2523;
+    border-left: 15px solid #2b1a18;
     color: var(--gold);
     display: flex; justify-content: center; align-items: center;
     backface-visibility: hidden;
     z-index: 2;
     border-radius: 5px 12px 12px 5px;
 }
-
-.cover-front h1 { font-size: 3rem; text-shadow: 2px 2px 4px #000; }
 
 .cover-back {
     background: var(--paper-bg);
@@ -81,16 +103,6 @@ body {
     border-radius: 12px 5px 5px 12px;
 }
 
-.page-right {
-    background: var(--paper-bg);
-    width: 100%; height: 100%;
-    position: absolute;
-    z-index: 1;
-    padding: 40px;
-    border-radius: 2px 10px 10px 2px;
-}
-
-/* লোগো এবং ফর্ম টেক্সট */
 .logo-text {
     font-family: 'Eagle Lake', cursive;
     font-size: 3.5rem; color: var(--ink);
@@ -113,24 +125,22 @@ input {
     cursor: pointer; transition: 0.3s;
 }
 
-.unlock-btn:hover { background: var(--gold); color: #3d2b1f; }
-
-/* মোবাইল ভিউ - যেখানে পুরো বইটা একসাথে দেখা যাবে */
+/* মোবাইল ভিউ - হুবহু ছবির মতো ফিট হবে */
 @media (max-width: 768px) {
     .book {
-        width: 160px; /* এক পাশের উইডথ কমানো হয়েছে */
-        height: 350px;
+        width: 180px; 
+        height: 380px;
         left: 50%;
-        margin-left: -80px;
-        transform: scale(0.9); /* ছোট স্ক্রিনে ফিট করার জন্য */
+        margin-left: -90px;
+        transform: scale(0.85); /* ছোট করে পুরোটা স্ক্রিনে আনা */
     }
 
     .book.open {
-        transform: scale(0.9) translateX(80px); /* খোলার পর দুই পাশই স্ক্রিনে থাকবে */
+        transform: scale(0.85) translateX(0); /* মোবাইলে সেন্টার পজিশন */
     }
 
-    .cover-front h1 { font-size: 1.5rem; }
-    .logo-text { font-size: 1.8rem; }
-    h3 { font-size: 1.5rem; }
-    .page-right { padding: 20px 15px; }
+    .cover-front h1 { font-size: 1.8rem; }
+    .logo-text { font-size: 2.2rem; }
+    h3 { font-size: 1.6rem; }
+    .page-right { padding: 25px 15px; }
 }
