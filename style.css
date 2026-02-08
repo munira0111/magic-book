@@ -18,47 +18,56 @@ body {
     font-family: 'IM Fell English SC', serif;
 }
 
+/* এই কন্টেইনারটি বইটিকে স্ক্রিনের মাঝখানে ধরে রাখবে */
 .scene {
-    perspective: 2000px;
+    width: 100%;
+    max-width: 800px; /* ল্যাপটপে অতিরিক্ত বড় হওয়া ঠেকাবে */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    perspective: 2000px;
 }
 
 .book {
-    width: 350px; 
-    height: 500px;
+    width: 320px; /* ল্যাপটপের জন্য পারফেক্ট সাইজ */
+    height: 450px;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform var(--speed) ease-in-out;
-    /* খোলার সময় বইটি আর ডানে সরবে না, তাই ভেঙে নিচে পড়ার ভয় নেই */
+    transition: transform var(--speed);
+    /* এবার আর translateX(175px) ব্যবহার করবো না যাতে স্ক্রিনের বাইরে না যায় */
 }
 
-/* ডান পাশের ফিক্সড পাতা */
+/* বই খোলার পর ল্যাপটপে পজিশন সামান্য অ্যাডজাস্ট */
+.book.open {
+    transform: rotateY(0deg); 
+}
+
 .page-right {
     background: var(--paper-bg);
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     z-index: 1;
-    padding: 40px;
+    padding: 30px;
     border-radius: 2px 10px 10px 2px;
     box-shadow: inset 5px 0 10px rgba(0,0,0,0.1), 5px 5px 20px rgba(0,0,0,0.4);
 }
 
-/* কভারের মেইন কন্টেইনার */
 .cover-container {
     position: absolute;
-    width: 100%; height: 100%;
-    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     z-index: 10;
     transform-style: preserve-3d;
     transform-origin: left;
-    transition: transform var(--speed) ease-in-out;
+    transition: transform var(--speed);
 }
 
-/* যখন বই খুলবে, শুধু কভারটা বামে ঘুরে যাবে, পুরো বইটা তার জায়গাতেই থাকবে */
+/* বই খুললে শুধু কভারটি ঘুরবে */
 .book.open .cover-container {
     transform: rotateY(-180deg);
 }
@@ -66,48 +75,56 @@ body {
 .cover-front {
     background: var(--cover-bg);
     background-image: url('https://www.transparenttextures.com/patterns/leather.png');
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     position: absolute;
     backface-visibility: hidden;
     z-index: 2;
-    border: 8px solid #3d2523;
-    border-left: 15px solid #2b1a18;
+    border: 6px solid #3d2523;
+    border-left: 12px solid #2b1a18;
     color: var(--gold);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px 12px 12px 5px;
 }
 
 .cover-back {
     background: var(--paper-bg);
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     position: absolute;
     transform: rotateY(180deg);
     backface-visibility: hidden;
-    display: flex; justify-content: center; align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 12px 5px 5px 12px;
-    box-shadow: inset -5px 0 10px rgba(0,0,0,0.1);
 }
 
-/* ফর্ম ও টেক্সট স্টাইল */
-.logo-text { font-family: 'Eagle Lake', cursive; font-size: 3.5rem; color: var(--ink); margin-bottom: 10px; }
-h3 { font-size: 2.2rem; color: var(--ink); text-align: center; margin-bottom: 30px; }
+/* টেক্সট ও ফর্ম সেটিংস */
+.logo-text { font-family: 'Eagle Lake', cursive; font-size: 2.8rem; color: var(--ink); }
+h3 { font-size: 1.8rem; color: var(--ink); text-align: center; margin-bottom: 20px; }
 input {
-    width: 100%; padding: 12px; margin-bottom: 25px;
+    width: 100%; padding: 10px; margin-bottom: 20px;
     background: transparent; border: none; border-bottom: 2px solid var(--ink);
-    font-size: 1.2rem; outline: none;
+    font-size: 1rem; outline: none;
 }
 .unlock-btn {
-    width: 100%; padding: 15px; background: #3d2b1f; color: var(--gold);
-    border: 1px solid var(--gold); font-size: 1.3rem; cursor: pointer;
+    width: 100%; padding: 12px; background: #3d2b1f; color: var(--gold);
+    border: 1px solid var(--gold); font-size: 1.1rem; cursor: pointer;
 }
 
-/* সব স্ক্রিনের জন্য অটো-অ্যাডজাস্টমেন্ট */
+/* ছোট ল্যাপটপ বা ট্যাবলেটের জন্য */
 @media (max-width: 1024px) {
-    .book { transform: scale(0.8); } /* ল্যাপটপে ছোট করে ফিট করা */
+    .book { width: 280px; height: 400px; }
 }
 
+/* মোবাইলের জন্য চূড়ান্ত সমাধান */
 @media (max-width: 600px) {
-    .book { width: 180px; height: 380px; transform: scale(0.9); } /* মোবাইলে ফিট করা */
-    .logo-text { font-size: 2rem; }
-    h3 { font-size: 1.6rem; }
+    .book { width: 160px; height: 350px; }
+    .logo-text { font-size: 1.8rem; }
+    h3 { font-size: 1.4rem; }
+    .page-right { padding: 15px; }
 }
