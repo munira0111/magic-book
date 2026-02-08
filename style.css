@@ -104,6 +104,9 @@ body {
         10px 0 0 #d9c89a,
         15px 5px 30px rgba(0,0,0,0.5);
 }
+.book.open .page-right {
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3); /* শুধু খুললেই শ্যাডো দেখাবে */
+}
 
 /* Logo and Form Styling */
 .logo-text {
@@ -152,3 +155,30 @@ input {
 
 .hint { margin-top: 20px; font-size: 0.9rem; letter-spacing: 2px; animation: blink 2s infinite; }
 @keyframes blink { 50% { opacity: 0.3; } }
+/* মোবাইল স্ক্রিনের জন্য (৭৬৮ পিক্সেলের নিচে) */
+@media (max-width: 768px) {
+    .book {
+        width: 300px;  /* মোবাইলে বইয়ের প্রস্থ কমবে */
+        height: 420px; /* মোবাইলে বইয়ের উচ্চতা কমবে */
+    }
+
+    .book.open {
+        transform: translateX(150px); /* খোলার পর পজিশন অ্যাডজাস্ট */
+    }
+
+    .cover-front h1 {
+        font-size: 2.2rem; /* লেখার সাইজ ছোট হবে */
+    }
+
+    .logo-text {
+        font-size: 2.5rem;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    .page-right {
+        padding: 30px 20px; /* ভেতরের খালি জায়গা কমবে */
+    }
+}
