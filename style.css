@@ -18,9 +18,11 @@ body {
     font-family: 'IM Fell English SC', serif;
 }
 
+/* বইয়ের বাইরের কন্টেইনার */
 .scene {
     perspective: 2000px;
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,114 +30,124 @@ body {
 
 .book {
     width: 350px; 
-    height: 480px;
+    height: 500px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform var(--speed) ease-in-out;
+    /* বইটিকে সবসময় সেন্টারে রাখার জন্য */
+    display: block;
 }
 
-/* ডেস্কটপে খোলার পর সেন্টার করার জন্য */
-.book.open { transform: translateX(175px); }
+/* বই খোলার পর ল্যাপটপে পজিশন ঠিক রাখা */
+.book.open {
+    transform: translateX(175px);
+}
 
-/* Stacked Pages ইফেক্ট */
+/* ডান পাশের ফিক্সড পেজ */
 .page-right {
     background: var(--paper-bg);
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 1;
     padding: 40px;
     border-radius: 2px 10px 10px 2px;
-    box-shadow: inset 5px 0 10px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.3);
+    /* গভীরতা বা Stacked effect */
+    box-shadow: inset 5px 0 10px rgba(0,0,0,0.1), 5px 5px 20px rgba(0,0,0,0.4);
 }
 
-/* পাতার স্তূপের গভীরতা */
-.page-right::after {
-    content: '';
-    position: absolute;
-    top: 5px; right: -10px;
-    width: 10px; height: 100%;
-    background: var(--paper-bg);
-    border-right: 1px solid #d9c89a;
-    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 2px, #d9c89a 3px);
-    transform: skewY(45deg);
-    transform-origin: left;
-}
-
+/* কভারের মেইন কন্টেইনার */
 .cover-container {
     position: absolute;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     z-index: 10;
     transform-style: preserve-3d;
     transform-origin: left;
     transition: transform var(--speed) ease-in-out;
 }
 
-.book.open .cover-container { transform: rotateY(-180deg); }
+.book.open .cover-container {
+    transform: rotateY(-180deg);
+}
 
 .cover-front {
     background: var(--cover-bg);
     background-image: url('https://www.transparenttextures.com/patterns/leather.png');
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    z-index: 2;
     border: 8px solid #3d2523;
     border-left: 15px solid #2b1a18;
     color: var(--gold);
-    display: flex; justify-content: center; align-items: center;
-    backface-visibility: hidden;
-    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px 12px 12px 5px;
 }
 
 .cover-back {
     background: var(--paper-bg);
+    width: 100%;
+    height: 100%;
+    position: absolute;
     transform: rotateY(180deg);
-    display: flex; justify-content: center; align-items: center;
     backface-visibility: hidden;
-    width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 12px 5px 5px 12px;
-    position: relative;
     box-shadow: inset -5px 0 10px rgba(0,0,0,0.1);
 }
 
-/* বাম পাশের পাতার গভীরতা */
-.cover-back::after {
-    content: '';
-    position: absolute;
-    top: 5px; left: -10px;
-    width: 10px; height: 100%;
-    background: var(--paper-bg);
-    border-left: 1px solid #d9c89a;
-    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 2px, #d9c89a 3px);
-    transform: skewY(-45deg);
-    transform-origin: right;
-}
-
-/* ফন্ট ও ফর্ম সেটিংস */
-.logo-text { font-family: 'Eagle Lake', cursive; font-size: 3rem; color: var(--ink); }
-h3 { font-size: 2rem; color: var(--ink); text-align: center; margin-bottom: 20px; }
+/* ফর্ম স্টাইলিং */
+.logo-text { font-family: 'Eagle Lake', cursive; font-size: 3.5rem; color: var(--ink); margin-bottom: 10px; }
+h3 { font-size: 2.2rem; color: var(--ink); text-align: center; margin-bottom: 30px; }
 input {
-    width: 100%; padding: 10px; margin-bottom: 20px;
-    background: transparent; border: none;
-    border-bottom: 2px solid var(--ink); font-size: 1rem; outline: none;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--ink);
+    font-size: 1.2rem;
+    outline: none;
 }
 .unlock-btn {
-    width: 100%; padding: 12px;
-    background: #3d2b1f; color: var(--gold);
-    border: 1px solid var(--gold); font-size: 1.1rem; cursor: pointer;
+    width: 100%;
+    padding: 15px;
+    background: #3d2b1f;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    font-size: 1.3rem;
+    cursor: pointer;
 }
 
-/* মোবাইল ভিউ - এটাই আসল সমাধান */
-@media (max-width: 600px) {
+/* ল্যাপটপ বা মোবাইলের স্ক্রিন ছোট হলে অটো-অ্যাডজাস্ট হবে */
+@media (max-width: 1024px) {
     .book {
-        width: 150px; /* সাইজ অনেক কমানো হয়েছে যাতে পাশাপাশি ধরে */
-        height: 350px;
+        transform: scale(0.85); /* পুরো বইটা ১৫% ছোট হবে যাতে ভেঙে না যায় */
     }
-    
     .book.open {
-        transform: translateX(75px) scale(1.1); /* খোলার পর সামান্য বড় করে স্ক্রিনে ফিট করা */
+        transform: scale(0.85) translateX(175px);
     }
+}
 
-    .logo-text { font-size: 1.8rem; }
-    h3 { font-size: 1.4rem; }
-    .page-right { padding: 20px 10px; }
-    .cover-front h1 { font-size: 1.5rem; }
+@media (max-width: 768px) {
+    .book {
+        width: 250px; 
+        height: 400px;
+    }
+    .book.open {
+        transform: translateX(125px) scale(0.9);
+    }
+    .logo-text { font-size: 2.5rem; }
+    h3 { font-size: 1.8rem; }
 }
